@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+//This is test code. Keeping here solely for memory
 const API_URL = 'http://localhost:8080';
 const USERNAME = 'user';
 const PASSWORD = 'supersecretpassword';
