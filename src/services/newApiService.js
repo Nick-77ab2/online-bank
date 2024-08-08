@@ -2,19 +2,33 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';
 
-export const getJsonKey = async (email, password) => {
+export const getUser = async (username, password) => {
     try {
-        const authHeader = `Basic ${btoa(`${email}:${password}`)}`;
-        const response = await axios.get(`${API_URL}/hello`,
-            { headers: { Authorization: authHeader } }
-        );
-        return response.data;
+        const response = await axios.post(`${API_URL}/authentication`,
+            {
+                username: username,
+                password: password
+            });
+        const token = response.data;
+        localStorage.setItem('token', token);
+        console.log('Login successful: ', token);
     } catch (error) {
-        console.error('User does not exist', error);
-        throw error;
+        console.error('Login failed:', error);
     }
 }
 
-export const saveUser = async (name, email, password) => {
+export const setUser = async (name, username, password) => {
+    try {
+        const response = await axios.post(`${API_URL}/register`, 
+            { name: name, 
+              username: username,
+              password: password 
+            });
+        console.log('User created successfully: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to save user', error);
+        throw error;
+    }
     
 }
