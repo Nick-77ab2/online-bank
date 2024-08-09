@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { handleLogin } from '../Login';
-import { handleRegister } from '../Register';
+import { useNavigate } from 'react-router-dom';
+import { getUser, setUser } from '../../services/newApiService';
 import './LoginSignup.css';
 
 
@@ -27,7 +27,35 @@ export const LoginSignup = () => {
         setUsername('');
         setPassword('');
     }
-
+    const navigate = useNavigate();
+    const navigateUser= () => {
+        navigate('/account', {replace: true});
+    }
+    const handleLogin = async (username, password) => {
+        try {
+            const response = await getUser(username, password);
+            if(response!=null){
+                console.log('Login Successful:', response);
+                LoginSignup.isLoggedIn=true;
+                navigateUser();
+            }
+            else{
+                console.log('returning false');
+                LoginSignup.isLoggedIn=false;
+            }
+        } catch (err) {
+            console.error('Error logging in:', err);
+        }
+    }
+    const handleRegister = async (name, username, password) => {
+        try{
+            const response = await setUser(name, username, password);
+            console.log('Registration Successful:', response);
+            switchToLogin();
+        } catch (err) {
+        console.error('Error Registering:', err);
+        }
+    }
   return (
     <div className ='container'>
         <div className = "header">
@@ -49,7 +77,7 @@ export const LoginSignup = () => {
             </div> 
         </div>
         <div className='continue'>
-            {action==="Sign Up"?<div className='continue' onClick={() => handleRegister(name, username, password)}>Register</div>:<div className='continue' onClick={() => handleLogin(username, password)}>Login</div>}
+            {action==="Sign Up"?<div className='continue' onClick={() => {handleRegister(name, username, password);}}>Register</div>:<div className='continue' onClick={() => {handleLogin(username, password); }}>Login</div>}
         </div>
         {action==="Sign Up"? null :<div className='forgot-password'>Forgot Password?<span>Click Here!</span></div>}
         <div className="submit-container">
