@@ -14,6 +14,7 @@ export const LoginSignup = () => {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [issue, setIssue] = useState('');
 
     const switchToSignup = () => {
         setAction("Sign Up");
@@ -27,6 +28,11 @@ export const LoginSignup = () => {
         setUsername('');
         setPassword('');
     }
+
+    const displayIssue = (response) => {
+        setIssue(response);
+        
+    }
     const navigate = useNavigate();
     const navigateUser= () => {
         navigate('/account', {replace: true});
@@ -34,9 +40,15 @@ export const LoginSignup = () => {
     const handleLogin = async (username, password) => {
         try {
             const response = await getUser(username, password);
-            if(response!=null){
+            if(response==="Wrong email or password, please try again.")
+            {
+                displayIssue(response);
+                LoginSignup.isLoggedIn=false;
+            }
+            else if(response!=null){
                 console.log('Login Successful:', response);
                 LoginSignup.isLoggedIn=true;
+                displayIssue('');
                 navigateUser();
             }
             else{
@@ -50,8 +62,15 @@ export const LoginSignup = () => {
     const handleRegister = async (name, username, password) => {
         try{
             const response = await setUser(name, username, password);
-            console.log('Registration Successful:', response);
-            switchToLogin();
+            if(response==="success")
+            {
+                console.log('Registration Successful:', response);
+                switchToLogin();
+                displayIssue('');
+            }
+            else{
+                displayIssue(response);
+            }
         } catch (err) {
         console.error('Error Registering:', err);
         }
@@ -80,9 +99,10 @@ export const LoginSignup = () => {
             {action==="Sign Up"?<div className='continue' onClick={() => {handleRegister(name, username, password);}}>Register</div>:<div className='continue' onClick={() => {handleLogin(username, password); }}>Login</div>}
         </div>
         {action==="Sign Up"? null :<div className='forgot-password'>Forgot Password?<span>Click Here!</span></div>}
+        <div className='issue'>{issue}</div>
         <div className="submit-container">
-            <div className={action==="Login"?"submit gray":"submit"} onClick={switchToSignup}>Sign Up Page</div>
-            <div className={action==="Sign Up"?"submit gray":"submit"} onClick={switchToLogin}>Login Page</div>
+            <div className={action==="Login"?"submit gray":"submit"} onClick={() =>{switchToSignup(); displayIssue('');}}>Sign Up Page</div>
+            <div className={action==="Sign Up"?"submit gray":"submit"} onClick={() =>{switchToLogin(); displayIssue('');}}>Login Page</div>
         </div>
     </div>
   )

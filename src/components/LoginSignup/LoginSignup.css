@@ -72,6 +72,12 @@
     cursor: pointer;
 }
 
+.issue{
+    margin-top: 27px;
+    color:#fe2f2f;
+    font-size: 18px;
+}
+
 .submit-container{
     display: flex;
     gap: 30px;

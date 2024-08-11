@@ -9,11 +9,14 @@ export const getUser = async (username, password) => {
                 username: username,
                 password: password
             });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
         const token = response.data;
         localStorage.setItem('token', token);
         return token;
     } catch (error) {
         console.error('Login failed:', error);
+        if(error.message==="Request failed with status code 401")
+            return "Wrong email or password, please try again."; 
         return null;
     }
 }
@@ -25,7 +28,7 @@ export const setUser = async (name, username, password) => {
               username: username,
               password: password 
             });
-        console.log('User created successfully: ', response.data);
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
         return response.data;
     } catch (error) {
         console.error('Failed to save user', error);
