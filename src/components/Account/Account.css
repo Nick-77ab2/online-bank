@@ -1,0 +1,41 @@
+.user{
+    background-color: #767676;
+    text-align: left; /* Left align the text */
+    border: 2px solid black; /* Add a border around the text */
+    padding: 10px; /* Add some padding inside the box */
+    width: fit-content; /* Adjust the width to fit the content */
+}
+
+.Account{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 480px;
+    height: 80px;
+    background: #eaeaea;
+    border-radius: 6px;
+}
+
+.accountInteractions {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 30px;
+    margin: 60px auto;
+    width: 100%; /* Ensure the container takes full width */
+}
+
+.button {
+    display: flex;
+    justify-content: center; /* Center content inside the button */
+    align-items: center; /* Center content inside the button */
+    width: 220px;
+    height: 59px;
+    color: #fff;
+    background-color: #767676;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}

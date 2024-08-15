@@ -36,3 +36,37 @@ export const setUser = async (name, username, password) => {
     }
     
 }
+
+export const deposit = async (username, amount) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/bank/addbalance/${username}`, {
+            amount: amount
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to deposit', error);
+        throw error;
+    }
+}
+
+export const withdraw = async (username, amount) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/bank/removebalance/${username}`, {
+            amount: amount
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to withdraw', error);
+        throw error;
+    }
+}

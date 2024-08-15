@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Account } from './Account';
 import './App.css';
+import { Account } from './components/Account/Account';
 import BankName from './components/BankName';
 import { LoginSignup } from './components/LoginSignup/LoginSignup';
 
