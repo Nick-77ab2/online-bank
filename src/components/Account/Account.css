@@ -39,3 +39,46 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.input{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    gap:9px;
+    width:100%;
+    margin-top: 30px;
+    color:#ffffff;
+    background-color: #767676;
+}
+.textinput{
+    display: flex;
+    justify-content: center; /* Center content inside the button */
+    align-items: center; /* Center content inside the button */
+    width: 220px;
+    height: 59px;
+    color: #fff;
+    background-color: #767676;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor:text;
+}
+
+.texts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color:black;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.accounttext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color:black;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: underline;
+}

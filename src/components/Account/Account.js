@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { deposit, withdraw } from '../../services/newApiService';
+import { deposit, transfer, withdraw } from '../../services/newApiService';
 import './Account.css';
 
 export const Account = () => {
@@ -21,6 +21,15 @@ export const Account = () => {
             console.error('Error withdrawing:', err);
         };
     }
+
+    const handleTransfer = async (fromUser, toUser, amount) => {
+        try{
+            const response = await transfer(fromUser, toUser, amount);
+            updateBalance(response); // Update balance after transfer
+        } catch(err){
+            console.error('Error transferring:', err);
+        };
+    }
     const parseJWT = () => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -35,6 +44,7 @@ export const Account = () => {
     console.log("Information in user: ",user);
     const account= user['Account:'];
     const [balance, setBalance] = useState(account.balance);
+    const [toUser, setUser] = useState('');
     const updateBalance = (amt) =>{
             setBalance(amt);
     }
@@ -44,12 +54,17 @@ export const Account = () => {
             <div className='user'>User: {user.Username}</div>
             <h1>Account Information</h1>
             <div className='Account'>
-                <div>{account.accountType} account</div>
+                <div className='accounttext'>{account.accountType} account</div>
                 <div>Current Balance: {balance}</div>
             </div>
             <div className='accountInteractions'>
                 <button className='button' onClick={() => {handleDeposit(account.accid,50);}}>Deposit 50</button>
                 <button className='button' onClick={() => {handleWithdraw(account.accid,25);}}>Withdraw 25</button>
+            </div>
+            <div className='texts'>Transfer to:</div>
+            <div className='input'>
+                <input className='textinput' placeholder='Enter email of user' value= {toUser} onChange={(e) => setUser(e.target.value)}/>
+                <button className='button' onClick={() =>{handleTransfer(account.accid, toUser, 50);}}>Transfer 50</button>
             </div>
         </div>
     );

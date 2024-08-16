@@ -70,3 +70,22 @@ export const withdraw = async (username, amount) => {
         throw error;
     }
 }
+
+export const transfer = async (fromUser, toUser, amount) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/bank/transfer`, {
+            fromUser: fromUser,
+            toUser: toUser,
+            amount: amount
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to transfer', error);
+        throw error;
+    }
+}
