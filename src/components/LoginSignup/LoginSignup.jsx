@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getUser, setUser } from '../../services/newApiService';
 import './LoginSignup.css';
 
@@ -15,6 +15,16 @@ export const LoginSignup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [issue, setIssue] = useState('');
+
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const actionFromParams = searchParams.get('action');
+        if (actionFromParams) {
+            setAction(actionFromParams);
+        }
+    }, [searchParams]);
 
     const switchToSignup = () => {
         setAction("Sign Up");
@@ -33,10 +43,6 @@ export const LoginSignup = () => {
         setIssue(response);
         
     }
-    const navigate = useNavigate();
-    const navigateUser= () => {
-        navigate('/account', {replace: true});
-    }
     const handleLogin = async (username, password) => {
         try {
             const response = await getUser(username, password);
@@ -49,7 +55,7 @@ export const LoginSignup = () => {
                 console.log('Login Successful:', response);
                 LoginSignup.isLoggedIn=true;
                 displayIssue('');
-                navigateUser();
+                navigate('/account', { replace: true });
             }
             else{
                 console.log('returning false');
@@ -60,21 +66,18 @@ export const LoginSignup = () => {
         }
     }
     const handleRegister = async (name, username, password) => {
-        try{
+        try {
             const response = await setUser(name, username, password);
-            if(response==="success")
-            {
+            if (response === "success") {
                 console.log('Registration Successful:', response);
-                switchToLogin();
-                displayIssue('');
-            }
-            else{
+                displayIssue('Check your email address for login token. You may close this window.');
+            } else {
                 displayIssue(response);
             }
         } catch (err) {
-        console.error('Error Registering:', err);
+            console.error('Error Registering:', err);
         }
-    }
+    };
   return (
     <div className ='container'>
         <div className = "header">

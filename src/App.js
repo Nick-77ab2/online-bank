@@ -4,6 +4,7 @@ import './App.css';
 import { Account } from './components/Account/Account';
 import BankName from './components/BankName';
 import { LoginSignup } from './components/LoginSignup/LoginSignup';
+import Verify from './components/LoginSignup/Verify';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
                 <Route path = "/account" element = {<Account/>}/>
                 <Route path = "/" element = {<LoginSignup />}/>
+                <Route path = "/verify" element = {<Verify/>}/>
             </Routes>
             <footer> Created by Nick Pelletier, 2024</footer>
             <footer>v0.1 Dev</footer>
