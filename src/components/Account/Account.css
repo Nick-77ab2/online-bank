@@ -82,3 +82,20 @@
     font-weight: 400;
     text-decoration: underline;
 }
+
+.logout{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    color: #fff;
+    background-color: #767676;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}

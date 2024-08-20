@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { deposit, transfer, withdraw } from '../../services/newApiService';
 import './Account.css';
 
 export const Account = () => {
 
+    const navigate = useNavigate();
     const handleDeposit = async (username, amount) => {
         try{
             const response = await deposit(username, amount);
@@ -40,6 +42,12 @@ export const Account = () => {
         return null;
     }
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
+
+
     const user = parseJWT();
     console.log("Information in user: ",user);
     const account= user['Account:'];
@@ -51,6 +59,7 @@ export const Account = () => {
 
     return (
         <div>
+        <button className="logout" onClick={logout}>Logout</button>
             <div className='user'>User: {user.Username}</div>
             <h1>Account Information</h1>
             <div className='Account'>
