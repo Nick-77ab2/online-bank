@@ -89,3 +89,30 @@ export const transfer = async (fromUser, toUser, amount) => {
         throw error;
     }
 }
+
+export const createToken = async (username) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/passwordReset`, {
+            username: username
+        });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to reset password', error);
+        throw error;
+    }
+}
+
+export const resetUserPassword = async (token, password) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/passwordReset/reset`, {
+            token: token,
+            password: password
+        });
+        console.log('Successfully contacted backend. Obtained response: ', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to reset password', error);
+        throw error;
+    }
+}

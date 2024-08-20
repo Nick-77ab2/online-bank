@@ -101,7 +101,7 @@ export const LoginSignup = () => {
         <div className='continue'>
             {action==="Sign Up"?<div className='continue' onClick={() => {handleRegister(name, username, password);}}>Register</div>:<div className='continue' onClick={() => {handleLogin(username, password); }}>Login</div>}
         </div>
-        {action==="Sign Up"? null :<div className='forgot-password'>Forgot Password?<span>Click Here!</span></div>}
+        {action==="Sign Up"? null :<div className='forgot-password'>Forgot Password?<span onClick={() => {navigate('/resetPassword', { replace: true });}}>Click Here!</span></div>}
         <div className='issue'>{issue}</div>
         <div className="submit-container">
             <div className={action==="Login"?"submit gray":"submit"} onClick={() =>{switchToSignup(); displayIssue('');}}>Sign Up Page</div>
