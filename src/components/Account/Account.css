@@ -99,3 +99,9 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+.issue{
+    margin-top: 27px;
+    color:#fe2f2f;
+    font-size: 18px;
+}
